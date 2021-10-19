@@ -21,7 +21,7 @@ from torchmetrics.functional import accuracy, auroc
 image_size = (224, 224)
 num_classes = 2
 batch_size = 256
-epochs = 100
+epochs = 50
 num_workers = 4
 img_data_dir = '<path_to_data>/CheXpert-v1.0/'
 disease_model = 'output/disease/densenet-all/version_0/checkpoints/<model_checkpoint>.ckpt'
