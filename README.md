@@ -7,7 +7,7 @@ This repository will contain the code for the paper
 
 ## Dataset
 
-The medical imaging dataset, CheXpert, used in this study is publicly available and can be downloaded from https://stanfordmlgroup.github.io/competitions/chexpert/.
+The CheXpert imaging dataset together with the patient demographic information used in this work can be downloaded from https://stanfordmlgroup.github.io/competitions/chexpert/.
 
 ## Code
 
