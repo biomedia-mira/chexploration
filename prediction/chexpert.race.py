@@ -174,7 +174,7 @@ class DenseNet(pl.LightningModule):
     def process_batch(self, batch):
         img, lab = self.unpack_batch(batch)
         out = self.forward(img)
-		loss = F.cross_entropy(out, lab, weight=torch.FloatTensor((1.0, 6.0, 11.0)).cuda())
+        loss = F.cross_entropy(out, lab, weight=torch.FloatTensor((1.0, 6.0, 11.0)).cuda())
         prob = torch.softmax(out, dim=1)
         auc = auroc(prob, lab, num_classes=self.num_classes, average='macro')
         return loss, auc

@@ -188,12 +188,12 @@ class DenseNet(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        loss = self.process_batch(batch)
+        loss, auc = self.process_batch(batch)
         self.log('val_loss', loss)
         self.log('val_auc', auc, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
-        loss = self.process_batch(batch)
+        loss, auc = self.process_batch(batch)
         self.log('test_loss', loss)
         self.log('test_auc', auc)
 
