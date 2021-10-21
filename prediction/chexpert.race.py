@@ -20,6 +20,7 @@ from torchmetrics.functional import accuracy, auroc
 
 image_size = (224, 224)
 num_classes = 3
+class_weights = (1.0, 6.0, 11.0) # helps with balancing accuracy, very little impact on AUC
 batch_size = 256
 epochs = 20
 num_workers = 4
@@ -99,9 +100,10 @@ class CheXpertDataModule(pl.LightningDataModule):
 
 
 class ResNet(pl.LightningModule):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes, class_weights):
         super().__init__()
         self.num_classes = num_classes
+        self.class_weights = torch.FloatTensor(class_weights).cuda() # not sure why .cuda() is needed, lightning should take care of it
         self.model = models.resnet34(pretrained=True)
         # freeze_model(self.model)
         num_features = self.model.fc.in_features
@@ -124,7 +126,7 @@ class ResNet(pl.LightningModule):
     def process_batch(self, batch):
         img, lab = self.unpack_batch(batch)
         out = self.forward(img)
-        loss = F.cross_entropy(out, lab, weight=torch.FloatTensor((1.0, 6.0, 11.0)).cuda())
+        loss = F.cross_entropy(out, lab, weight=self.class_weights)
         prob = torch.softmax(out, dim=1)
         auc = auroc(prob, lab, num_classes=self.num_classes, average='macro')
         return loss, auc
@@ -149,9 +151,10 @@ class ResNet(pl.LightningModule):
 
 
 class DenseNet(pl.LightningModule):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes, class_weights):
         super().__init__()
         self.num_classes = num_classes
+        self.class_weights = torch.FloatTensor(class_weights).cuda()  # not sure why .cuda() is needed, lightning should take care of it
         self.model = models.densenet121(pretrained=True)
         # freeze_model(self.model)
         num_features = self.model.classifier.in_features
@@ -174,7 +177,7 @@ class DenseNet(pl.LightningModule):
     def process_batch(self, batch):
         img, lab = self.unpack_batch(batch)
         out = self.forward(img)
-        loss = F.cross_entropy(out, lab, weight=torch.FloatTensor((1.0, 6.0, 11.0)).cuda())
+        loss = F.cross_entropy(out, lab, weight=self.class_weights)
         prob = torch.softmax(out, dim=1)
         auc = auroc(prob, lab, num_classes=self.num_classes, average='macro')
         return loss, auc
@@ -261,7 +264,7 @@ def main(hparams):
 
     # model
     model_type = DenseNet
-    model = model_type(num_classes=num_classes)
+    model = model_type(num_classes=num_classes, class_weights=class_weights)
 
     # Create output directory
     out_name = 'densenet-all'
@@ -290,7 +293,7 @@ def main(hparams):
     trainer.logger._default_hp_metric = False
     trainer.fit(model, data)
 
-    model = model_type.load_from_checkpoint(trainer.checkpoint_callback.best_model_path, num_classes=num_classes)
+    model = model_type.load_from_checkpoint(trainer.checkpoint_callback.best_model_path, num_classes=num_classes, class_weights=class_weights)
 
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda:" + str(hparams.dev) if use_cuda else "cpu")
