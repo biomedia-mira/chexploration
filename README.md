@@ -1,9 +1,9 @@
-# Assessing the inter-relationship of prediction tasks
+# Algorithmic encoding of protected characteristics
 
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
 This repository contains the code for the paper
-> B. Glocker, S. Winzeck. _Assessing the inter-relationship of prediction tasks: Implications for algorithmic encoding of protected characteristics and its effect on AI performance_. 2021. Pre-print; under review.
+> B. Glocker, S. Winzeck. _Algorithmic encoding of protected characteristics and its implications on disparities across subgroups_. 2021. Pre-print; under review.
 
 ## Dataset
 
