@@ -1,4 +1,4 @@
-# Algorithmic encoding of protected characteristics
+# Algorithmic encoding of protected characteristics and its implications on disparities across subgroups
 
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
