@@ -3,7 +3,7 @@
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
 This repository contains the code for the paper
-> B. Glocker, S. Winzeck. _Algorithmic encoding of protected characteristics and its implications on disparities across subgroups_. 2021. Pre-print; under review.
+> B. Glocker, S. Winzeck. [_Algorithmic encoding of protected characteristics and its implications on disparities across subgroups_](https://arxiv.org/abs/2110.14755). 2021. under review. arXiv:2110.14755
 
 ## Dataset
 
