@@ -66,6 +66,10 @@ In order to replicate the results presented in the paper, please follow these st
 Additionally, there are scripts [`chexpert.sex.split.py`](prediction/chexpert.sex.split.py) and [`chexpert.race.split.py`](prediction/chexpert.race.split.py) to run SPLIT on the disease detection model. The default setting in all scripts is to train a DenseNet-121 using the training data from all patients. The results for models trained on subgroups only can be produced by changing the path to the datafiles (e.g., using `full_sample_train_white.csv` and `full_sample_val_white.csv` instead of `full_sample_train.csv` and `full_sample_val.csv`).
 
 Note, the Python scripts also contain code for running the experiments using a ResNet-34 backbone which requires less GPU memory.
+
+### Trained models
+
+All trained models, feature embeddings and output predictions can be found [here](https://imperialcollegelondon.box.com/s/bq87wkuzy14ctsyf8w3hcikwzu8386jj).
    
 ## Funding sources
 This work is supported through funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant Agreement No. 757173, [Project MIRA](https://www.project-mira.eu), ERC-2017-STG) and by the [UKRI London Medical Imaging & Artificial Intelligence Centre for Value Based Healthcare](https://www.aicentre.co.uk/).
