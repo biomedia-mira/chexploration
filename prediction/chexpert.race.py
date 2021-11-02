@@ -103,7 +103,7 @@ class ResNet(pl.LightningModule):
     def __init__(self, num_classes, class_weights):
         super().__init__()
         self.num_classes = num_classes
-        self.class_weights = torch.FloatTensor(class_weights).cuda() # not sure why .cuda() is needed, lightning should take care of it
+        self.class_weights = torch.FloatTensor(class_weights)
         self.model = models.resnet34(pretrained=True)
         # freeze_model(self.model)
         num_features = self.model.fc.in_features
@@ -126,7 +126,7 @@ class ResNet(pl.LightningModule):
     def process_batch(self, batch):
         img, lab = self.unpack_batch(batch)
         out = self.forward(img)
-        loss = F.cross_entropy(out, lab, weight=self.class_weights)
+        loss = F.cross_entropy(out, lab, weight=self.class_weights.type_as(img))
         prob = torch.softmax(out, dim=1)
         auc = auroc(prob, lab, num_classes=self.num_classes, average='macro')
         return loss, auc
@@ -154,7 +154,7 @@ class DenseNet(pl.LightningModule):
     def __init__(self, num_classes, class_weights):
         super().__init__()
         self.num_classes = num_classes
-        self.class_weights = torch.FloatTensor(class_weights).cuda()  # not sure why .cuda() is needed, lightning should take care of it
+        self.class_weights = torch.FloatTensor(class_weights)
         self.model = models.densenet121(pretrained=True)
         # freeze_model(self.model)
         num_features = self.model.classifier.in_features
@@ -177,7 +177,7 @@ class DenseNet(pl.LightningModule):
     def process_batch(self, batch):
         img, lab = self.unpack_batch(batch)
         out = self.forward(img)
-        loss = F.cross_entropy(out, lab, weight=self.class_weights)
+        loss = F.cross_entropy(out, lab, weight=self.class_weights.type_as(img))
         prob = torch.softmax(out, dim=1)
         auc = auroc(prob, lab, num_classes=self.num_classes, average='macro')
         return loss, auc
