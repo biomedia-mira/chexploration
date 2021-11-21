@@ -19,7 +19,7 @@ from argparse import ArgumentParser
 
 image_size = (224, 224)
 num_classes = 3
-batch_size = 256
+batch_size = 150
 epochs = 50
 num_workers = 4
 img_data_dir = '<path_to_data>/CheXpert-v1.0/'
