@@ -16,7 +16,6 @@ from skimage.io import imread
 from skimage.io import imsave
 from tqdm import tqdm
 from argparse import ArgumentParser
-from torchmetrics.functional import accuracy, auroc
 
 image_size = (224, 224)
 num_classes = 3
@@ -174,27 +173,22 @@ class ResNetRace(pl.LightningModule):
         img, lab = self.unpack_batch(batch)
         out = self.forward(img)
         loss = F.cross_entropy(out, lab)
-        prob = torch.softmax(out, dim=1)
-        auc = auroc(prob, lab, num_classes=self.num_classes, average='macro')
-        return loss, auc
+        return loss
 
     def training_step(self, batch, batch_idx):
-        loss, auc = self.process_batch(batch)
+        loss = self.process_batch(batch)
         self.log('train_loss', loss)
-        self.log('train_auc', auc, prog_bar=True)
         grid = torchvision.utils.make_grid(batch['image'][0:4, ...], nrow=2, normalize=True)
         self.logger.experiment.add_image('images', grid, self.global_step)
         return loss
 
     def validation_step(self, batch, batch_idx):
-        loss, auc = self.process_batch(batch)
+        loss = self.process_batch(batch)
         self.log('val_loss', loss)
-        self.log('val_auc', auc, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
-        loss, auc = self.process_batch(batch)
+        loss = self.process_batch(batch)
         self.log('test_loss', loss)
-        self.log('test_auc', auc)
 
 
 class DenseNetDisease(pl.LightningModule):
@@ -272,27 +266,22 @@ class DenseNetRace(pl.LightningModule):
         img, lab = self.unpack_batch(batch)
         out = self.forward(img)
         loss = F.cross_entropy(out, lab)
-        prob = torch.softmax(out, dim=1)
-        auc = auroc(prob, lab, num_classes=self.num_classes, average='macro')
-        return loss, auc
+        return loss
 
     def training_step(self, batch, batch_idx):
-        loss, auc = self.process_batch(batch)
+        loss = self.process_batch(batch)
         self.log('train_loss', loss)
-        self.log('train_auc', auc, prog_bar=True)
         grid = torchvision.utils.make_grid(batch['image'][0:4, ...], nrow=2, normalize=True)
         self.logger.experiment.add_image('images', grid, self.global_step)
         return loss
 
     def validation_step(self, batch, batch_idx):
-        loss, auc = self.process_batch(batch)
+        loss = self.process_batch(batch)
         self.log('val_loss', loss)
-        self.log('val_auc', auc, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
-        loss, auc = self.process_batch(batch)
+        loss = self.process_batch(batch)
         self.log('test_loss', loss)
-        self.log('test_auc', auc)
 
 
 def freeze_model(model):
@@ -321,23 +310,6 @@ def test(model, data_loader, device):
             c = torch.sum(t)
             counts.append(c)
         print(counts)
-
-        auc_per_class = auroc(preds, targets, num_classes=num_classes, average='none')
-        auc_avg = auroc(preds, targets, num_classes=num_classes, average='macro')
-        acc_per_class = accuracy(preds, targets, num_classes=num_classes, average='none')
-        acc_avg = accuracy(preds, targets, num_classes=num_classes, average='macro')
-
-        print('AUC per-class')
-        print(auc_per_class)
-
-        print('AUC average')
-        print(auc_avg)
-
-        print('ACC per-class')
-        print(acc_per_class)
-
-        print('ACC average')
-        print(acc_avg)
 
     return preds.cpu().numpy(), targets.cpu().numpy()
 
@@ -376,7 +348,7 @@ def main(hparams):
         sample = data.train_set.get_sample(idx)
         imsave(os.path.join(temp_dir, 'sample_' + str(idx) + '.jpg'), sample['image'].astype(np.uint8))
 
-    checkpoint_callback = ModelCheckpoint(monitor="val_auc", mode='max')
+    checkpoint_callback = ModelCheckpoint(monitor="val_loss", mode='min')
 
     # train
     trainer = pl.Trainer(
