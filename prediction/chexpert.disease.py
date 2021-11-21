@@ -16,11 +16,10 @@ from skimage.io import imread
 from skimage.io import imsave
 from tqdm import tqdm
 from argparse import ArgumentParser
-from torchmetrics.functional import accuracy, auroc
 
 image_size = (224, 224)
 num_classes = 14
-batch_size = 256
+batch_size = 150
 epochs = 20
 num_workers = 4
 img_data_dir = '<path_to_data>/CheXpert-v1.0/'
