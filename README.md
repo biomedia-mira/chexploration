@@ -1,9 +1,9 @@
-# Algorithmic encoding of protected characteristics and its implications on disparities across subgroups
+# Algorithmic encoding of protected characteristics and its implications on performance disparities
 
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
 This repository contains the code for the paper
-> B. Glocker, S. Winzeck. [_Algorithmic encoding of protected characteristics and its implications on disparities across subgroups_](https://arxiv.org/abs/2110.14755). 2021. pre-print arXiv:2110.14755. _under review_
+> B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. [_Algorithmic encoding of protected characteristics and its implications on performance disparities_](https://arxiv.org/abs/2110.14755). 2021. pre-print arXiv:2110.14755. _under review_
 
 ## Dataset
 
