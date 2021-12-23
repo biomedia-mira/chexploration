@@ -18,7 +18,7 @@ For running the code, we recommend setting up a dedicated Python environment.
 Create and activate a Python 3 conda environment:
 
    ```shell
-   conda create -n pymira python=3
+   conda create -n chexploration python=3
    conda activate chexploration
    ```
    
