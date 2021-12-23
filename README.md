@@ -22,10 +22,10 @@ Create and activate a Python 3 conda environment:
    conda activate chexploration
    ```
    
-Install PyTorch using conda:
+Install PyTorch using conda (for CUDA Toolkit 11.3):
    
    ```shell
-   conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+   conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
    ```
    
 ### Setup Python environment using virtualenv
