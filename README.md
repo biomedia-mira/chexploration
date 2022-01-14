@@ -1,9 +1,9 @@
-# Algorithmic encoding of protected characteristics and its implications on disparities across subgroups
+# Algorithmic encoding of protected characteristics and its implications on performance disparities
 
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
 This repository contains the code for the paper
-> B. Glocker, S. Winzeck. [_Algorithmic encoding of protected characteristics and its implications on disparities across subgroups_](https://arxiv.org/abs/2110.14755). 2021. pre-print arXiv:2110.14755. _under review_
+> B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. [_Algorithmic encoding of protected characteristics and its implications on performance disparities_](https://arxiv.org/abs/2110.14755). 2021. pre-print arXiv:2110.14755. _under review_
 
 ## Dataset
 
@@ -18,14 +18,14 @@ For running the code, we recommend setting up a dedicated Python environment.
 Create and activate a Python 3 conda environment:
 
    ```shell
-   conda create -n pymira python=3
+   conda create -n chexploration python=3
    conda activate chexploration
    ```
    
-Install PyTorch using conda:
+Install PyTorch using conda (for CUDA Toolkit 11.3):
    
    ```shell
-   conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+   conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
    ```
    
 ### Setup Python environment using virtualenv
