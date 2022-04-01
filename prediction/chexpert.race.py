@@ -226,9 +226,9 @@ def main(hparams):
     pl.seed_everything(42, workers=True)
 
     # data
-    data = CheXpertDataModule(csv_train_img='../datafiles/full_sample_train.csv',
-                              csv_val_img='../datafiles/full_sample_val.csv',
-                              csv_test_img='../datafiles/full_sample_test.csv',
+    data = CheXpertDataModule(csv_train_img='../datafiles/chexpert/chexpert.sample.train.csv',
+                              csv_val_img='../datafiles/chexpert/chexpert.sample.val.csv',
+                              csv_test_img='../datafiles/chexpert/chexpert.sample.test.csv',
                               image_size=image_size,
                               pseudo_rgb=True,
                               batch_size=batch_size,
@@ -240,7 +240,7 @@ def main(hparams):
 
     # Create output directory
     out_name = 'densenet-all'
-    out_dir = 'output/race/' + out_name
+    out_dir = 'chexpert/race/' + out_name
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
@@ -260,7 +260,7 @@ def main(hparams):
         log_every_n_steps = 5,
         max_epochs=epochs,
         gpus=hparams.gpus,
-        logger=TensorBoardLogger('output/race', name=out_name),
+        logger=TensorBoardLogger('chexpert/race', name=out_name),
     )
     trainer.logger._default_hp_metric = False
     trainer.fit(model, data)
@@ -278,13 +278,13 @@ def main(hparams):
     preds_val, targets_val = test(model, data.val_dataloader(), device)
     df = pd.DataFrame(data=preds_val, columns=cols_names)
     df['target'] = targets_val
-    df.to_csv(os.path.join(out_dir, 'predictions_val.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.val.csv'), index=False)
 
     print('TESTING')
     preds_test, targets_test = test(model, data.test_dataloader(), device)
     df = pd.DataFrame(data=preds_test, columns=cols_names)
     df['target'] = targets_test
-    df.to_csv(os.path.join(out_dir, 'predictions_test.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.test.csv'), index=False)
 
 
 if __name__ == '__main__':

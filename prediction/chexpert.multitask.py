@@ -354,9 +354,9 @@ def main(hparams):
     pl.seed_everything(42, workers=True)
 
     # data
-    data = CheXpertDataModule(csv_train_img='../datafiles/full_sample_train.csv',
-                              csv_val_img='../datafiles/full_sample_val.csv',
-                              csv_test_img='../datafiles/full_sample_test.csv',
+    data = CheXpertDataModule(csv_train_img='../datafiles/chexpert/chexpert.sample.train.csv',
+                              csv_val_img='../datafiles/chexpert/chexpert.sample.val.csv',
+                              csv_test_img='../datafiles/chexpert/chexpert.sample.test.csv',
                               image_size=image_size,
                               pseudo_rgb=True,
                               batch_size=batch_size,
@@ -368,7 +368,7 @@ def main(hparams):
 
     # Create output directory
     out_name = 'densenet-all'
-    out_dir = 'output/multitask/' + out_name
+    out_dir = 'chexpert/multitask/' + out_name
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
@@ -388,7 +388,7 @@ def main(hparams):
         log_every_n_steps = 5,
         max_epochs=epochs,
         gpus=hparams.gpus,
-        logger=TensorBoardLogger('output/multitask', name=out_name),
+        logger=TensorBoardLogger('chexpert/multitask', name=out_name),
     )
     trainer.logger._default_hp_metric = False
     trainer.fit(model, data)
@@ -417,19 +417,19 @@ def main(hparams):
     df_logits = pd.DataFrame(data=logits_val_disease, columns=cols_names_logits_disease)
     df_targets = pd.DataFrame(data=targets_val_disease, columns=cols_names_targets_disease)
     df = pd.concat([df, df_logits, df_targets], axis=1)
-    df.to_csv(os.path.join(out_dir, 'predictions_val_disease.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.val.disease.csv'), index=False)
 
     df = pd.DataFrame(data=preds_val_sex, columns=cols_names_classes_sex)
     df_logits = pd.DataFrame(data=logits_val_sex, columns=cols_names_logits_sex)
     df = pd.concat([df, df_logits], axis=1)
     df['target'] = targets_val_sex
-    df.to_csv(os.path.join(out_dir, 'predictions_val_sex.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.val.sex.csv'), index=False)
 
     df = pd.DataFrame(data=preds_val_race, columns=cols_names_classes_race)
     df_logits = pd.DataFrame(data=logits_val_race, columns=cols_names_logits_race)
     df = pd.concat([df, df_logits], axis=1)
     df['target'] = targets_val_race
-    df.to_csv(os.path.join(out_dir, 'predictions_val_race.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.val.race.csv'), index=False)
 
     print('TESTING')
     preds_test_disease, targets_test_disease, logits_test_disease, preds_test_sex, targets_test_sex, logits_test_sex, preds_test_race, targets_test_race, logits_test_race = test(model, data.test_dataloader(), device)
@@ -438,19 +438,19 @@ def main(hparams):
     df_logits = pd.DataFrame(data=logits_test_disease, columns=cols_names_logits_disease)
     df_targets = pd.DataFrame(data=targets_test_disease, columns=cols_names_targets_disease)
     df = pd.concat([df, df_logits, df_targets], axis=1)
-    df.to_csv(os.path.join(out_dir, 'predictions_test_disease.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.test.disease.csv'), index=False)
 
     df = pd.DataFrame(data=preds_test_sex, columns=cols_names_classes_sex)
     df_logits = pd.DataFrame(data=logits_test_sex, columns=cols_names_logits_sex)
     df = pd.concat([df, df_logits], axis=1)
     df['target'] = targets_test_sex
-    df.to_csv(os.path.join(out_dir, 'predictions_test_sex.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.test.sex.csv'), index=False)
 
     df = pd.DataFrame(data=preds_test_race, columns=cols_names_classes_race)
     df_logits = pd.DataFrame(data=logits_test_race, columns=cols_names_logits_race)
     df = pd.concat([df, df_logits], axis=1)
     df['target'] = targets_test_race
-    df.to_csv(os.path.join(out_dir, 'predictions_test_race.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'predictions.test.race.csv'), index=False)
 
     print('EMBEDDINGS')
 
@@ -460,7 +460,7 @@ def main(hparams):
     df = pd.concat([df, df_targets_disease], axis=1)
     df['target_sex'] = targets_val_sex
     df['target_race'] = targets_val_race
-    df.to_csv(os.path.join(out_dir, 'embeddings_val.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'embeddings.val.csv'), index=False)
 
     embeds_test, targets_test_disease, targets_test_sex, targets_test_race = embeddings(model, data.test_dataloader(), device)
     df = pd.DataFrame(data=embeds_test)
@@ -468,7 +468,7 @@ def main(hparams):
     df = pd.concat([df, df_targets_disease], axis=1)
     df['target_sex'] = targets_test_sex
     df['target_race'] = targets_test_race
-    df.to_csv(os.path.join(out_dir, 'embeddings_test.csv'), index=False)
+    df.to_csv(os.path.join(out_dir, 'embeddings.test.csv'), index=False)
 
 
 if __name__ == '__main__':

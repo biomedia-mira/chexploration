@@ -9,6 +9,8 @@ This repository contains the code for the paper
 
 The CheXpert imaging dataset together with the patient demographic information used in this work can be downloaded from https://stanfordmlgroup.github.io/competitions/chexpert/.
 
+The MIMIC-CXR imaging dataset can be downloaded from https://physionet.org/content/mimic-cxr-jpg/2.0.0/ with the corresponding demographic information available from https://physionet.org/content/mimiciv/1.0/.
+
 ## Code
 
 For running the code, we recommend setting up a dedicated Python environment.
@@ -57,20 +59,25 @@ The code has been tested on Windows 10 and Ubuntu 18.04/20.04 operating systems.
 
 In order to replicate the results presented in the paper, please follow these steps:
 
-1. Download the [CheXpert dataset](https://stanfordmlgroup.github.io/competitions/chexpert/), copy the file `train.csv` to the `datafiles` folder
-2. Download the [CheXpert demographics data](https://stanfordaimi.azurewebsites.net/datasets/192ada7c-4d43-466e-b8bb-b81992bb80cf), copy the file `CHEXPERT DEMO.xlsx` to the `datafiles` folder
-3. Run the notebook [`chexpert.sample.ipynb`](notebooks/chexpert.sample.ipynb) to generate the study data
-4. Adjust the variable `img_data_dir` to point to the imaging data and run the following scripts
-   - Run the script [`chexpert.disease.py`](prediction/chexpert.disease.py) to train a disease detection model
-   - Run the script [`chexpert.sex.py`](prediction/chexpert.sex.py) to train a sex classification model
-   - Run the script [`chexpert.race.py`](prediction/chexpert.race.py) to train a race classification model
-   - Run the script [`chexpert.multitask.py`](prediction/chexpert.multitask.py) to train a multitask model
-5. Run the notebook [`chexpert.predictions.ipynb`](notebooks/chexpert.predictions.ipynb) to evaluate all the prediction models
-6. Run the notebook [`chexpert.explorer.ipynb`](notebooks/chexpert.explorer.ipynb) for the unsupervised exploration of feature representations
+1. Download the [CheXpert dataset](https://stanfordmlgroup.github.io/competitions/chexpert/), copy the file `train.csv` to the `datafiles/chexpert` folder. Download the [CheXpert demographics data](https://stanfordaimi.azurewebsites.net/datasets/192ada7c-4d43-466e-b8bb-b81992bb80cf), copy the file `CHEXPERT DEMO.xlsx` to the `datafiles/chexpert` folder.
+2. Download the [MIMIC-CXR dataset](https://physionet.org/content/mimic-cxr-jpg/2.0.0/), copy the files `mimic-cxr-2.0.0-metdata.csv` and `mimic-cxr-2.0.0-chexpert.csv` to the `datafiles/mimic` folder. Download the [MIMIC-IV demographics data](https://physionet.org/content/mimiciv/1.0/), copy the files `admissions.csv` and `patients.csv` to the `datafiles/mimic` folder.
+3. Run the notebooks [`chexpert.sample.ipynb`](notebooks/chexpert.sample.ipynb) and [`mimic.sample.ipynb`](notebooks/mimic.sample.ipynb) to generate the study data.
 
-Additionally, there are scripts [`chexpert.sex.split.py`](prediction/chexpert.sex.split.py) and [`chexpert.race.split.py`](prediction/chexpert.race.split.py) to run SPLIT on the disease detection model. The default setting in all scripts is to train a DenseNet-121 using the training data from all patients. The results for models trained on subgroups only can be produced by changing the path to the datafiles (e.g., using `full_sample_train_white.csv` and `full_sample_val_white.csv` instead of `full_sample_train.csv` and `full_sample_val.csv`).
+To replicate the results on CheXpert:
 
-Note, the Python scripts also contain code for running the experiments using a ResNet-34 backbone which requires less GPU memory.
+1. Adjust the variable `img_data_dir` to point to the CheXpert imaging data and run the following scripts:
+   - Run the script [`chexpert.disease.py`](prediction/chexpert.disease.py) to train a disease detection model.
+   - Run the script [`chexpert.sex.py`](prediction/chexpert.sex.py) to train a sex classification model.
+   - Run the script [`chexpert.race.py`](prediction/chexpert.race.py) to train a race classification model.
+   - Run the script [`chexpert.multitask.py`](prediction/chexpert.multitask.py) to train a multitask model.
+2. Run the notebook [`chexpert.predictions.ipynb`](notebooks/chexpert.predictions.ipynb) to evaluate all the prediction models.
+3. Run the notebook [`chexpert.explorer.ipynb`](notebooks/chexpert.explorer.ipynb) for the unsupervised exploration of feature representations.
+
+Additionally, there are scripts [`chexpert.sex.split.py`](prediction/chexpert.sex.split.py) and [`chexpert.race.split.py`](prediction/chexpert.race.split.py) to run SPLIT on the disease detection model. The default setting in all scripts is to train a DenseNet-121 using the training data from all patients. The results for models trained on subgroups only can be produced by changing the path to the data files (e.g., using `chexpert.sample.train.white.csv` and `chexpert.sample.val.white.csv` instead of `chexpert.sample.train.csv` and `chexpert.sample.val.csv`).
+
+To replicate the results on MIMIC-CXR, adjust the above scripts accordingly to point to the MIMIC imaging data and its corresponding data files (e.g., `mimic.sample.train.csv`, `mimic.sample.val.csv` and `mimic.sample.test.csv`). 
+
+Note, the Python scripts also contain code for running the experiments using a ResNet-34 backbone which requires less GPU memory than DenseNet-121.
 
 ### Trained models
 

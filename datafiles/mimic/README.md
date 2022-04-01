@@ -1,0 +1,1 @@
+Add the files `admissions.csv`, `patients.csv`, `mimic-cxr-2.0.0-metadata.csv` and `mimic-cxr-2.0.0-chexpert` from the MIMIC-IV and MIMIC-CXR datasets to this folder. The data files for our study can then be reproduced using the notebook [mimic.sample.ipynb](../../notebooks/mimic.sample.ipynb).
