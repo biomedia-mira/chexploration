@@ -335,7 +335,7 @@ def main(hparams):
     model = model_type(num_classes=num_classes, backbone=pretrained.model)
 
     # Create output directory
-    out_name = 'densenet-all-split'
+    out_name = 'densenet-disease-all'
     out_dir = 'chexpert/sex/' + out_name
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
