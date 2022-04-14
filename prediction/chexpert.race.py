@@ -19,9 +19,9 @@ from argparse import ArgumentParser
 
 image_size = (224, 224)
 num_classes = 3
-class_weights = (1.0, 6.0, 11.0) # helps with balancing accuracy, very little impact on AUC
+class_weights = (1.0, 1.0, 1.0) # can be changed to balance accuracy
 batch_size = 150
-epochs = 20
+epochs = 50
 num_workers = 4
 img_data_dir = '<path_to_data>/CheXpert-v1.0/'
 

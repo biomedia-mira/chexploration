@@ -48,7 +48,7 @@ Install PyTorch using pip:
 ### Install additional Python packages:
    
    ```shell
-   pip install matplotlib jupyter pandas seaborn pytorch-lightning scikit-learn scikit-image tensorboard tqdm openpyxl
+   pip install matplotlib jupyter pandas seaborn pytorch-lightning scikit-learn scikit-image tensorboard tqdm openpyxl tabulate
    ```
 
 ### Requirements
