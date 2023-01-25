@@ -1,9 +1,9 @@
-# Algorithmic encoding of protected characteristics in image-based models for disease detection
+# Algorithmic encoding of protected characteristics in chest X-ray disease detection models
 
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
 This repository contains the code for the paper
-> B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. [_Algorithmic encoding of protected characteristics in image-based models for disease detection_](https://arxiv.org/abs/2110.14755). 2021. pre-print arXiv:2110.14755.
+> B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. _Algorithmic encoding of protected characteristics in chest X-ray disease detection models_. 2023. eBioMedicine (in press). Pre-print available here [arXiv:2110.14755](https://arxiv.org/abs/2110.14755).
 
 ## Dataset
 
