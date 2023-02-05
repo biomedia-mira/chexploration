@@ -1,9 +1,9 @@
-# Algorithmic encoding of protected characteristics in image-based models for disease detection
+# Algorithmic encoding of protected characteristics in chest X-ray disease detection models
 
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
 This repository contains the code for the paper
-> B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. [_Algorithmic encoding of protected characteristics in image-based models for disease detection_](https://arxiv.org/abs/2110.14755). 2021. pre-print arXiv:2110.14755.
+> B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. _Algorithmic encoding of protected characteristics in chest X-ray disease detection models_. eBioMedicine (in press). 2023. Pre-print available here [arXiv:2110.14755](https://arxiv.org/abs/2110.14755).
 
 ## Dataset
 
@@ -62,6 +62,7 @@ In order to replicate the results presented in the paper, please follow these st
 1. Download the [CheXpert dataset](https://stanfordmlgroup.github.io/competitions/chexpert/), copy the file `train.csv` to the `datafiles/chexpert` folder. Download the [CheXpert demographics data](https://stanfordaimi.azurewebsites.net/datasets/192ada7c-4d43-466e-b8bb-b81992bb80cf), copy the file `CHEXPERT DEMO.xlsx` to the `datafiles/chexpert` folder.
 2. Download the [MIMIC-CXR dataset](https://physionet.org/content/mimic-cxr-jpg/2.0.0/), copy the files `mimic-cxr-2.0.0-metdata.csv` and `mimic-cxr-2.0.0-chexpert.csv` to the `datafiles/mimic` folder. Download the [MIMIC-IV demographics data](https://physionet.org/content/mimiciv/1.0/), copy the files `admissions.csv` and `patients.csv` to the `datafiles/mimic` folder.
 3. Run the notebooks [`chexpert.sample.ipynb`](notebooks/chexpert.sample.ipynb) and [`mimic.sample.ipynb`](notebooks/mimic.sample.ipynb) to generate the study data.
+4. Run the notebook [`chexpert.resample.ipynb`](notebooks/chexpert.resample.ipynb) to perform test-set resampling.
 
 To replicate the results on CheXpert:
 
