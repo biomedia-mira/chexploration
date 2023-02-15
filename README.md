@@ -3,7 +3,7 @@
 ![Components of a deep neural networks](assets/network.png "Components of a deep neural networks")
 
 This repository contains the code for the paper
-> [B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. _Algorithmic encoding of protected characteristics in chest X-ray disease detection models_. eBioMedicine. 2023](https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(23)00032-4/fulltext).
+> B. Glocker, C. Jones, M. Bernhardt, S. Winzeck. [**Algorithmic encoding of protected characteristics in chest X-ray disease detection models**](https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(23)00032-4/fulltext). eBioMedicine. Volume 89, 104467, March 2023.
 
 ## Dataset
 
